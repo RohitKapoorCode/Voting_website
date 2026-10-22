@@ -1,14 +1,35 @@
+
 const express = require('express');
+const path = require('path');
 const app = express();
-const PORT = 5500;
 
-app.use(express.urlencoded({extended:false}))
+require('dotenv').config();
+const PORT = process.env.PORT;  
 
-app.listen(PORT,(req,res)=>{
-    console.log(`The Port Number is:${PORT}`)
+
+app.use(express.static('public'));
+
+
+// Welcome page
+app.get('/', (req, res) => {
+    res.render('welcome.ejs');
+});
+
+// Login page
+app.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
+
+
+app.get('/register',(req,res)=>{
+    res.render('register.ejs');
+})
+
+app.get('/forgetpassword',(req,res)=>{
+    res.render('forgetpassword.ejs')
 })
 
 
-app.get('/',(req,res)=>{
-    res.send("Hello Voter Users");
-})
+app.listen(PORT, () => {
+    console.log(`The Port Number is: ${PORT}`); 
+});

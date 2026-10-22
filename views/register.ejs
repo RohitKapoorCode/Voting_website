@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Registration</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="logo">🗳️ Voter Portal</div>
+
+            <div class="welcome">
+                <h1>Your Vote,<br>Your Voice.</h1>
+                <p>
+                    Welcome to the Voter Portal.
+                    Register your account to continue.
+                </p>
+            </div>
+
+            <div class="footer-text">
+                Secure Voter Portal
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="form-box register-form">
+
+                <h2>Create Account</h2>
+                <p class="subtitle">
+                    Register for your voter account
+                </p>
+
+                <form action="/register" method="POST">
+
+                    <div class="input-group">
+                        <label for="fullname">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email ID</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your Email ID"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required
+                            minlength="8"
+                        >
+                    </div>
+
+                    <button type="submit">Create Account</button>
+
+                    <p class="switch-text">
+                        Already registered?
+                        <a href="/login">Login</a>
+                    </p>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

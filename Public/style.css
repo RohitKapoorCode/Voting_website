@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.container {
+    width: 900px;
+    max-width: 100%;
+    min-height: 570px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+/* Left Panel */
+
+.left-panel {
+    background: linear-gradient(145deg, #092b55, #1268ad);
+    color: #fff;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.welcome {
+    margin: 35px 0;
+}
+
+.welcome h1 {
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.welcome p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #e0ecf8;
+    max-width: 300px;
+}
+
+.footer-text {
+    font-size: 13px;
+    color: #d5e5f5;
+}
+
+/* Right Panel */
+
+.right-panel {
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-box {
+    display: block;
+    width: 100%;
+}
+
+.form-box h2 {
+    font-size: 27px;
+    color: #12345a;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #7b8794;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Input Fields */
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #334155;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d5dce5;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #1268ad;
+    box-shadow: 0 0 0 3px rgba(18, 104, 173, 0.1);
+}
+
+/* Remember and Forgot Password */
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    margin: 5px 0 22px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+}
+
+.remember input {
+    width: auto;
+}
+
+.form-options a {
+    color: #1268ad;
+    text-decoration: none;
+}
+
+/* Login Button */
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #1268ad;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #092b55;
+}
+
+/* Register Link */
+
+.switch-text {
+    margin-top: 23px;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.switch-text a {
+    color: #1268ad;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.switch-text a:hover,
+.form-options a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+
+@media (max-width: 700px) {
+    body {
+        padding: 15px;
+        align-items: flex-start;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .left-panel {
+        min-height: 220px;
+        padding: 25px;
+    }
+
+    .welcome {
+        margin: 25px 0 10px;
+    }
+
+    .welcome h1 {
+        font-size: 30px;
+    }
+
+    .footer-text {
+        display: none;
+    }
+
+    .right-panel {
+        padding: 25px;
+    }
+}
