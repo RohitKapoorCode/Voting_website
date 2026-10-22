@@ -2,10 +2,16 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const mongoose = require("mongoose");
 
 require('dotenv').config();
 const PORT = process.env.PORT;  
-
+const MONGOSE = process.env.MONGOSE;
+mongoose.connect(MONGOSE)
+    .then(() => {
+        console.log("MongoDB Connected Successfully");
+    })
+    
 
 app.use(express.static('public'));
 
@@ -23,10 +29,6 @@ app.get('/login', (req, res) => {
 
 app.get('/register',(req,res)=>{
     res.render('register.ejs');
-})
-
-app.get('/forgetpassword',(req,res)=>{
-    res.render('forgetpassword.ejs')
 })
 
 
