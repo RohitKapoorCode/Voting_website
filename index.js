@@ -3,10 +3,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+const jsonwebtoken = require('jsonwebtoken');
 
 require('dotenv').config();
 const PORT = process.env.PORT;  
 const MONGOSE = process.env.MONGOSE;
+
 mongoose.connect(MONGOSE)
     .then(() => {
         console.log("MongoDB Connected Successfully");
