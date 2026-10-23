@@ -5,6 +5,8 @@ const app = express();
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
+const userRoutes = require('./Routes/user.routes');
+
 
 require('dotenv').config();
 const PORT = process.env.PORT;  
@@ -17,7 +19,9 @@ mongoose.connect(MONGOSE)
     
 
 app.use(express.static('public'));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', userRoutes);
 
 // Welcome page
 app.get('/', (req, res) => {
@@ -31,8 +35,13 @@ app.get('/login', (req, res) => {
 
 
 app.get('/register',(req,res)=>{
-    res.render('register.ejs');
+    res.render('register.ejs',{
+        message: req.query.message 
+    });
 })
+
+
+
 
 
 app.listen(PORT, () => {

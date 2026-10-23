@@ -15,20 +15,38 @@ router.get('/', (req, res) => {
 
 
 // login
-router.post('/login',  async (req, res) => {
-    const { emailid, password} = req.body
-    const user = await User.findOne({emailid})
-    if(!user ) return res.status(404).json({messsage:"Email id  not found"})
+router.post('/login', async (req, res) => {
+    const { emailid, password } = req.body;
 
-        const isMatch = await bcrypt.compare(password, user.Password)
-    if(!isMatch) return res.status(400).json({message:'Invalid Creddentials'})
+    const user = await User.findOne({ emailid });
+
+ if (!user) {
+    return res.send(`
+        <script>
+            alert("You are not a user. Please register");
+            window.location.href = "/register";
+        </script>
+    `);
+}
+
+    const isMatch = await bcrypt.compare(password, user.Password);
+
+    if (!isMatch) {
+        return res.status(400).json({
+            message: "Invalid credentials"
+        });
+    }
 
     const token = jwt.sign(
-        {registerId: user._id, fullname: user.fullname },
-            process.env.JWT_SECRET,
+        { registerId: user._id, fullname: user.fullname },
+        process.env.JWT_SECRET,
         { expiresIn: '1h' }
-    )
+    );
 
+    return res.status(200).json({
+        message: "Login successful",
+        token: token
+    });
 });
 
 
@@ -49,6 +67,9 @@ router.post('/register', async(req,res)=>{
         res.status(500).json({meassage: error.message})
     }
 })
+
+
+module.exports = router;
 
 
 
