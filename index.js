@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const userRoutes = require('./Routes/user.routes');
 const auth = require('./Middleware/auth');
 const votingRoutes = require('./Routes/voting.routes');
-const path = require('path');
+
 
 require('dotenv').config();
 const PORT = process.env.PORT;  
@@ -22,6 +22,7 @@ mongoose.connect(MONGOSE)
     })
     
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cookieParser());
