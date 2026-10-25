@@ -112,6 +112,7 @@ const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 
 // Public poll page
+
 router.get('/poll/:id', async (req, res) => {
     try {
         const voting = await Voting.findOne({
@@ -127,11 +128,56 @@ router.get('/poll/:id', async (req, res) => {
             return res.status(404).send('Voting not found or expired.');
         }
 
-        res.render('public-voting', { voting });
+        const voterKey = req.cookies?.voterKey;
+
+        const alreadyVoted = voterKey
+            ? voting.votes.some(vote => vote.voterKey === voterKey)
+            : false;
+
+        if (alreadyVoted) {
+            return res.send(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Already Voted</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            padding: 60px 20px;
+                            background: #f4f7fb;
+                        }
+                        .message {
+                            max-width: 500px;
+                            margin: auto;
+                            padding: 30px;
+                            background: white;
+                            border-radius: 12px;
+                            box-shadow: 0 4px 16px #0001;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="message">
+                        <h2>✅ Vote Already Submitted</h2>
+                        <p>You have already submitted a vote.</p>
+                        <p>You can vote only once.</p>
+                    </div>
+                </body>
+                </html>
+            `);
+        }
+
+        return res.render('public-voting', { voting });
+
     } catch (error) {
-        res.status(400).send('Invalid voting link.');
+        console.error('Load poll error:', error);
+        return res.status(400).send('Invalid voting link.');
     }
 });
+
 
 // Submit public vote
 router.post('/poll/:id/vote', async (req, res) => {
@@ -188,30 +234,21 @@ router.post('/poll/:id/vote', async (req, res) => {
 
         await voting.save();
 
-        res.send(`
+       return res.send(`
         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Vote Submitted</title>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         </head>
         <body>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Vote Submitted Successfully!',
-                text: 'Thank you for voting.',
-                confirmButtonText: 'Back to Poll'
-            }).then(() => {
-                window.location.href = '/voting/poll/${voting._id}';
-            });
-        </script>
+            <script>
+                window.location.replace('about:blank');
+            </script>
         </body>
         </html>
-        
-        `);
+    `    );
     } catch (error) {
         console.error('Vote error:', error);
         res.status(500).send('The vote could not be submitted.');
