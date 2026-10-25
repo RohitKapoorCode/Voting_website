@@ -107,7 +107,7 @@
                                 type="text"
                                 class="form-control"
                                 id="pollLink-<%= voting._id %>"
-                                value="<%= (typeof publicBaseUrl !== 'undefined' && publicBaseUrl ? publicBaseUrl : 'http://localhost:5500') %>/voting/poll/<%= voting._id %>"
+                                value="<%= (publicBaseUrl || 'https://voting-website-hvqz.onrender.com').replace(/\/$/, '') %>/voting/poll/<%= voting._id %>"
                                 readonly
                             >
 
