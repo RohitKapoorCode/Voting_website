@@ -5,23 +5,30 @@ const app = express();
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const userRoutes = require('./Routes/user.routes');
-
+const auth = require('./Middleware/auth');
+const votingRoutes = require('./Routes/voting.routes');
 
 require('dotenv').config();
 const PORT = process.env.PORT;  
 const MONGOSE = process.env.MONGOSE;
+publicBaseUrl: process.env.APP_URL
 
 mongoose.connect(MONGOSE)
     .then(() => {
         console.log("MongoDB Connected Successfully");
     })
     
-
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', userRoutes);
+app.use('/voting', votingRoutes);
+
+
 
 // Welcome page
 app.get('/', (req, res) => {
@@ -41,8 +48,9 @@ app.get('/register',(req,res)=>{
 })
 
 
-
-
+app.get('/dashboard', auth, (req, res) => {
+    res.render('dashboard');
+});
 
 app.listen(PORT, () => {
     console.log(`The Port Number is: ${PORT}`); 
